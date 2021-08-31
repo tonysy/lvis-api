@@ -1,5 +1,5 @@
 import cv2
-import logging
+from loguru import logger
 import os
 
 import numpy as np
@@ -23,7 +23,7 @@ class LVISVis:
             to be displayed will be downloaded to the current working dir.
             dpi (int): dpi for figure size setup
         """
-        self.logger = logging.getLogger(__name__)
+        self.logger = logger
 
         if isinstance(lvis_gt, LVIS):
             self.lvis_gt = lvis_gt

@@ -1,11 +1,9 @@
 import cv2
-import logging
+from loguru import logger
 import multiprocessing
 import numpy as np
 
 import pycocotools.mask as mask_utils
-
-logger = logging.getLogger(__name__)
 
 
 def ann_to_rle(ann, imgs):
@@ -73,7 +71,9 @@ def mask_to_boundary(mask, dilation_ratio=0.02):
 # COCO/LVIS related util functions, to get the boundary for every annotations.
 def augment_annotations_with_boundary_single_core(proc_id, annotations, imgs, dilation_ratio=0.02):
     new_annotations = []
-
+    if proc_id == 0:
+        from tqdm import tqdm
+        annotations = tqdm(annotations)
     for ann in annotations:
         mask = ann_to_mask(ann, imgs)
         # Find mask boundary.

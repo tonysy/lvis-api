@@ -1,4 +1,4 @@
-import logging
+from loguru import logger
 from lvis import LVIS, LVISResults, LVISEval
 
 # result and val files for 100 randomly sampled images.

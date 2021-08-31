@@ -1,5 +1,5 @@
 from copy import deepcopy
-import logging
+from loguru import logger
 from collections import defaultdict
 from lvis.lvis import LVIS
 
@@ -46,7 +46,7 @@ class LVISResults(LVIS):
         self.dilation_ratio = dilation_ratio
         self.max_cpu_num = max_cpu_num
 
-        self.logger = logging.getLogger(__name__)
+        self.logger = logger
         self.logger.info("Loading and preparing results.")
 
         if isinstance(results, str):

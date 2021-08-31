@@ -8,7 +8,7 @@ images and annotations from the LVIS website.
 
 import json
 import os
-import logging
+from loguru import logger
 from collections import defaultdict
 from urllib.request import urlretrieve
 import time
@@ -27,7 +27,7 @@ class LVIS:
             dilation_ratio (float): ratio to calculate dilation = dilation_ratio * image_diagonal
             max_cpu_num (int): max number of cpu cores to compute mask boundary before evaluation
         """
-        self.logger = logging.getLogger(__name__)
+        self.logger = logger
         self.logger.info("Loading annotations.")
 
         self.dataset = self._load_json(annotation_path)

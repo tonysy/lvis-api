@@ -1,5 +1,5 @@
 import datetime
-import logging
+from loguru import logger
 from collections import OrderedDict
 from collections import defaultdict
 
@@ -27,7 +27,7 @@ class LVISEval:
             dilation_ratio (float): ratio to calculate dilation = dilation_ratio * image_diagonal
             max_cpu_num (int): max number of cpu cores to compute mask boundary before evaluation
         """
-        self.logger = logging.getLogger(__name__)
+        self.logger = logger
 
         if iou_type not in ["bbox", "segm", "boundary"]:
             raise ValueError("iou_type: {} is not supported.".format(iou_type))
@@ -95,9 +95,12 @@ class LVISEval:
         self.params = Params(iou_type=iou_type)  # parameters
         self.results = OrderedDict()
         self.ious = {}  # ious between all gts and dts
+
+        self.params.max_dets = self.lvis_dt.max_dets_per_im
+        self.params.max_dets_per_cat = self.lvis_dt.max_dets_per_cat
         if mode == "challenge2021":
-            self.params.max_dets = -1
-            self.params.max_dets_per_cat = 10000
+            assert self.params.max_dets == -1
+            assert self.params.max_dets_per_cat == 10000
 
         self.params.img_ids = sorted(self.lvis_gt.get_img_ids())
         self.params.cat_ids = sorted(self.lvis_gt.get_cat_ids())
