@@ -379,7 +379,7 @@ class LVISEval:
         self.logger.info("Accumulating evaluation results.")
 
         if not self.eval_imgs:
-            self.logger.warn("Please run evaluate first.")
+            self.logger.warning("Please run evaluate first.")
 
         if self.params.use_cats:
             cat_ids = self.params.cat_ids
@@ -605,7 +605,7 @@ class LVISEval:
 
     def get_results(self):
         if not self.results:
-            self.logger.warn("results is empty. Call run().")
+            self.logger.warning("results is empty. Call run().")
         return self.results
 
 

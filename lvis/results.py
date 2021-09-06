@@ -54,7 +54,7 @@ class LVISResults(LVIS):
         else:
             # this path way is provided to avoid saving and loading result
             # during training.
-            self.logger.warn("Assuming user provided the results in correct format.")
+            self.logger.warning("Assuming user provided the results in correct format.")
             result_anns = results
 
         assert isinstance(result_anns, list), "results is not a list."
